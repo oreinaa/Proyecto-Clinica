@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'header.html' %}
+
+{% load static %}
+{% endblock %}
+
+{% block headcss %}
+{% endblock %}
+
+
+{% block main %}
+
+<div class="card car-default" id="espacio">
+    <div class="card-header">
+        <h3 id="fig" class="card-tittle">
+           <i class="fas fa-notes-medical" style="font-size: 30px;"></i> <span>
+              {{title}}</span>
+           <a href="{% url 'core:listar_paciente' %}" class="btn btn-primary float-right"> Terminar Consulta</a> 
+        </h3>
+     </div>
+     <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card mb-3 table-responsive mx-2 my-2">
+                        <div class=" row no-gutters">
+                            <div class="col-md-4">
+                                {% if receta.paciente.foto %}
+                                <img src="{{receta.paciente.foto.url}}" class="img-thumbnail rounded-circle"
+                                    width="100%">
+
+                                {% else %}
+                                <img src="{% static 'imagenes/sinimagen.jpg' %}" class="img-thumbnail rounded-circle"
+                                    width="100%">
+                                {% endif %}
+
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Datos del Paciente</h5>
+                                    <p class="card-text"> {{receta.paciente.nombre}} {{receta.paciente.apellido}}
+                                    </p>
+                                    <p class="card-text"> Email:{{receta.paciente.email}}
+                                    </p>
+                                    <p class="card-text"> Telefono:{{receta.paciente.telefono}}
+                                    </p>
+                                    <p class="card-text"> Direccion:{{receta.paciente.direccion}}
+                                    </p>
+                                    <p class="card-text"> Fecha:{{receta.fecha}} Hora:{{receta.hora}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mx-2 my-2">
+                            <div class="card card-default">
+                            <div class="card-header">
+                                <label class=" font-weight-bold" for="">Motivo de Consulta</label>
+                            </div>
+                            
+                            <div class="card-body">
+                                <textarea class="form-control" id="id_motivo" placeholder="Empieza a escribir..."
+                                rows="3">{{receta.motivo}}</textarea>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mx-2 my-2">
+                            <div class="card card-default">
+                            <div class="card-header">
+                                <label class=" font-weight-bold" for="">Estudio de Gabinete</label>
+                            </div>
+                            
+                            <div class="card-body">
+                                <select multiple class="form-control" id="exampleFormControlSelect2">
+                                </select>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card table-responsive my-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="POST">
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <select class="form-control" id="id_grupo_sintoma">
+                                                <option selected value="0">Sintomas</option>
+                                                {% for grupo in lt_grupo_sintomas %}
+                                                <option value="{{grupo.id}}">{{grupo}}</option>
+                                                {% endfor %}
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block" id="id_registrar_sintoma"
+                                        type="button">Registrar
+                                        Sintoma
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table table-hover table-striped  m-3 ">
+                                <thead class="bg-warning">
+                                    <tr class="h5">
+                                        <th>Sintomas</th>
+                                        <th class="text-center">Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="delegacion-container" id="id_contenedor_sintoma">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <div class="card card-default">
+                            <div class="card-header">
+                                <label class=" font-weight-bold" for="">Exploración Física</label>
+                            </div>
+                            
+                            <div class="card-body">
+                                <textarea class="form-control" id="id_exploracion" placeholder="Empieza a escribir..."
+                                rows="3">{{receta.exploracion}}</textarea>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card table-responsive">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="POST">
+                                    <div class="row">
+                                        <div class="col-12 mx-2 my-2">
+                                            <div class="card card-default">
+                                            <div class="card-header">
+                                                <label class=" font-weight-bold" for="">Diagnostico</label>
+                                            </div>
+                                            
+                                            <div class="card-body">
+                                                <select multiple class="form-control" id="exampleFormControlSelect2">
+                                                    {% for grupo in lt_grupo_diagnosticos %}
+                                                    <option value="{{grupo.id}}">{{grupo}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block" id="id_registrar_diagnostico"
+                                        type="button">Registrar
+                                        Diagnostico
+                                    </button>
+        
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table table-hover table-striped  m-1 ">
+                                <thead class="bg-warning">
+                                    <tr class="h5">
+                                        <th>Diagnostico</th>
+                                        <th class="text-center">Acciones</th>
+        
+                                    </tr>
+                                </thead>
+                                <tbody class="delegacion-container" id="id_contenedor">
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col">
+                    <div class="card table-responsive my-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="POST">
+                                    <div class="form-group row">
+                                        <div class="col-3">
+                                            <select class="form-control js-example-basic-multiple" name="states[]" id="id_grupo_medicamento">
+                                                <option selected value="0">Medicamentos</option>
+                                                {% for grupo in lt_grupo_medicamentos %}
+                                                <option value="{{grupo.id}}">{{grupo}}</option>
+                                                {% endfor %}
+        
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <select class="form-control" id="id_grupo_dosis">
+                                                <option selected value="0">Dosis</option>
+                                                    {% for grupo in lt_grupo_dosis %}
+                                                <option value="{{grupo.id}}">{{grupo}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <select class="form-control" id="id_grupo_frecuencia">
+                                                <option selected value="0">Frecuencia</option>
+                                                    {% for grupo in lt_grupo_frecuencias %}
+                                                <option value="{{grupo.id}}">{{grupo}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <select class="form-control" id="id_grupo_duracion">
+                                                <option selected value="0">Duracion</option>
+                                                    {% for grupo in lt_grupo_duraciones %}
+                                                <option value="{{grupo.id}}">{{grupo}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block" id="id_registrar_medicamento"
+                                        type="button">Registrar
+                                        el medicamento
+                                    </button>
+        
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table table-hover table-striped  m-2 ">
+                                <thead class="bg-warning">
+                                    <tr class="h5">
+                                        <th>Medicamento</th>
+                                        <th>Dosis</th>
+                                        <th>Frecuencia</th>
+                                        <th>Duracion</th>
+                                        <th class="text-center">Acciones</th>
+        
+                                    </tr>
+                                </thead>
+                                <tbody class="delegacion-container" id="id_contenedor">
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <div class="card card-default">
+                            <div class="card-header">
+                                <label class=" font-weight-bold" for="">instrucciones</label>
+                            </div>
+                            
+                            <div class="card-body">
+                                <textarea class="form-control" id="id_exploracion" placeholder="Empieza a escribir..."
+                                rows="3">{{receta.instrucciones}}</textarea>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" id="id_guardar" type="button">Actualizar Historia</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jscript %}
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
+
+<script>
+    const c = console.log
+
+    let lt_receta_detalle = [],
+      id_seleccionado = 0,
+      por_editar = false,
+      lt_grupo_medicamento = [],
+      lt_grupo_dosis = [],
+      lt_grupo_frecuencia = [],
+      lt_grupo_duracion = [],
+      lt_grupo_sintoma = [],
+      lt_grupo_diagnostico = [],
+      id_momentaneo = 0,
+      id_paciente = "{{receta.paciente_id}}",
+      token = "{{ csrf_token }}"
+
+    const cargar_combo = async (id_grupo_medicamento,id_grupo_sintoma,id_grupo_dosis,id_grupo_frecuencia,id_grupo_duracion,id_grupo_diagnostico) => {
+
+        const response = await fetch(`{% url "atencion:receta" %}?action=data_medicamento&id_grupo_medicamento=${id_grupo_medicamento}
+                                    &id_grupo_sintoma=${id_grupo_sintoma}&id_grupo_dosis=${id_grupo_dosis}&id_grupo_frecuencia=${id_grupo_frecuencia}
+                                    &id_grupo_duracion=${id_grupo_duracion}&id_grupo_diagnostico=${id_grupo_diagnostico}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+
+                }
+            }
+        )
+        const resultado = await response.json()
+        
+    }
+    const limpiar_formulario = () => {
+        $("#id_grupo_medicamento").val(0)
+        $("#id_grupo_dosis").val(0)
+        $("#id_grupo_frecuencia").val(0)
+        $("#id_grupo_duracion").val(0)
+        $("#id_grupo_sintoma").val(0)
+        $("#id_grupo_diagnostico").val(0)
+
+    }
+    const pintar_receta = (lt_receta_detalle) => {
+        
+        $("#id_contenedor_medicamento").empty()
+
+        lt_grupo_medicamento.forEach((el_grupo, index) => {
+            
+            lt_grupo_dosis.forEach((el_grupo,index)=>{
+                lt_grupo_frecuencia.forEach((el_grupo,index)=>{
+                    lt_grupo_duracion.forEach((el_grupo,index)=>{
+                        lt_receta_detalle.forEach((elemento, index) => {
+                    
+                    if (el_grupo === elemento.id_grupo_medicamento) {
+                        
+                        $("#id_contenedor_medicamento").append(
+                            `
+                            <tr class="text-justify fondo">
+                                <td>${elemento.grupo_medicamento}</td>
+                                <td>${elemento.grupo_dosis}</td>
+                                <td>${elemento.grupo_frecuencia}</td>
+                                <td>${elemento.grupo_duracion}</td>
+                                <td>
+                                    <a rel="action" data-json='{"accion":"elim" ,"id":"${elemento.id}"}'
+                                    class="btn btn-danger btn-sm" href="#">Eliminar</a>
+                                </td>
+                            </tr>
+                            `
+                            
+                        )
+                    }
+
+                })
+                    })
+                })
+            })
+        })
+
+        lt_grupo_sintoma.forEach((el_grupo,index)=>{
+
+            lt_receta_detalle.forEach((elemento, index) => {
+                    
+                    if (el_grupo === elemento.id_grupo_sintoma) {
+                        
+                        $("#id_contenedor").append(
+                            `
+                            <tr class="text-justify fondo">
+                                <td>${elemento.grupo_sintoma}</td>
+
+                                <td>
+                                    <a rel="action" data-json='{"accion":"elim" ,"id":"${elemento.id}"}'
+                                    class="btn btn-danger btn-sm" href="#">Eliminar</a>
+                                </td>
+                            </tr>
+                            `
+                            
+                        )
+                    }
+
+                })
+        })
+        
+        limpiar_formulario()
+
+    }
+    const add_receta = async (id_grupo_medicamento, grupo_medicamento, id_grupo_dosis, grupo_dosis, 
+                            id_grupo_frecuencia, grupo_frecuencia, id_grupo_duracion, grupo_duracion,
+                            id_grupo_sintoma, grupo_sintoma) => {
+
+        const data = {
+            id: id_momentaneo,
+            id_grupo_medicamento: id_grupo_medicamento,
+            grupo_medicamento: grupo_medicamento,
+            id_grupo_dosis: id_grupo_dosis,
+            grupo_dosis: grupo_dosis,
+            id_grupo_frecuencia: id_grupo_frecuencia,
+            grupo_frecuencia: grupo_frecuencia,
+            id_grupo_duracion: id_grupo_duracion,
+            grupo_duracion: grupo_duracion,
+            id_grupo_sintoma: id_grupo_sintoma,
+            grupo_sintoma: grupo_sintoma
+        }
+
+        id_momentaneo = id_momentaneo + 1
+        lt_receta_detalle.push(data)
+        pintar_receta(lt_receta_detalle)
+    }
+    const delete_receta = (id) => {
+
+        lt_receta_detalle = lt_receta_detalle.filter(elemento => elemento.id !== id)
+        pintar_receta(lt_receta_detalle)
+    }
+
+    $('#id_contenedor').on('click', 'a[rel="action"]', async function () {
+
+        let data = $(this).data('json'),
+            action = data.accion,
+            id = parseInt(data.id);
+
+        if (action === "elim") {
+            delete_receta(id)
+
+        }
+    });
+// al cargar pinta el detalle de la historia
+    {% for obj_receta_detalle in list_receta_detalle %}
+    lt_receta_detalle.push(
+        {
+            id: id_momentaneo,
+            id_grupo_medicamento: parseInt("{{ obj_receta_detalle.medicamento_id }}"),
+            grupo_medicamento: "{{ obj_receta_detalle.medicamento }}",
+            id_grupo_dosis: parseInt("{{ obj_receta_detalle.dosis_id }}"),
+            grupo_dosis: "{{ obj_receta_detalle.dosis }}",
+            id_grupo_frecuencia: parseInt("{{ obj_receta_detalle.frecuencia_id }}"),
+            grupo_frecuencia: "{{ obj_receta_detalle.frecuencia }}",
+            id_grupo_duracion: parseInt("{{ obj_receta_detalle.duracion_id }}"),
+            grupo_duracion: "{{ obj_receta_detalle.duracion }}",
+            id_grupo_sintoma: parseInt("{{ obj_receta_detalle.sintoma_id }}"),
+            grupo_sintoma: "{{ obj_receta_detalle.sintoma }}"
+        },
+
+    )
+
+    id_momentaneo = id_momentaneo + 1
+    {% endfor %}
+
+    {% for grupo in lt_grupo_medicamentos %}
+    lt_grupo_medicamento.push(parseInt("{{grupo.id}}"))
+    {% endfor %}
+    {% for grupo in lt_grupo_sintomas %}
+    lt_grupo_sintoma.push(parseInt("{{grupo.id}}"))
+    {% endfor %}
+    {% for grupo in lt_grupo_dosis %}
+    lt_grupo_dosis.push(parseInt("{{grupo.id}}"))
+    {% endfor %}
+    {% for grupo in lt_grupo_frecuencias %}
+    lt_grupo_frecuencia.push(parseInt("{{grupo.id}}"))
+    {% endfor %}
+    {% for grupo in lt_grupo_duraciones %}
+    lt_grupo_duracion.push(parseInt("{{grupo.id}}"))
+    {% endfor %}
+
+    pintar_receta(lt_receta_detalle)
+
+    $(function () {
+        alert("Entro a Receta");
+        
+        $("#id_registrar_medicamento").click(async function () {
+
+            const id_grupo_medicamento = parseInt($("#id_grupo_medicamento").val()),
+                grupo_medicamento = $("#id_grupo_medicamento option:selected").text(),
+                id_grupo_dosis = parseInt($("#id_grupo_dosis").val()),
+                grupo_dosis = $("#id_grupo_dosis option:selected").text(),
+                id_grupo_frecuencia = parseInt($("#id_grupo_frecuencia").val()),
+                grupo_frecuencia = $("#id_grupo_frecuencia option:selected").text(),
+                id_grupo_duracion = parseInt($("#id_grupo_duracion").val()),
+                grupo_duracion = $("#id_grupo_duracion option:selected").text(),
+
+        })
+
+        $("#id_registar_sintoma").click(async function() {
+            const id_grupo_sintoma = parseInt($("#id_grupo_sintoma").val()),
+                grupo_sintoma = $("#id_grupo_sintoma option:selected").text(),
+
+
+        })
+
+        $("#id_guardar").click(async function () {
+
+            const parametros = new FormData()
+            parametros.append("lt_receta", JSON.stringify(lt_receta_detalle))
+            parametros.append("id_paciente", id_paciente)
+            parametros.append("action", "submit")
+            parametros.append("csrfmiddlewaretoken", token)
+            parametros.append("motivo", descripcion = $("#id_motivo").val())
+            parametros.append("gabinete", descripcion = $("#id_gabinete").val())
+            parametros.append("exploracion", descripcion = $("#id_exploracion").val())
+            parametros.append("instrucciones", descripcion = $("#id_instrucciones").val())
+
+
+            const response = await fetch(`{% url "atencion:receta" %}`,
+                {
+                    method: "POST",
+                    body: parametros
+                }
+            )
+
+            const resultado = await response.json()
+            if (resultado.result == "ok") {
+                alert("Registro guardado con exito")
+            }
+
+        })
+    })
+
+ </script>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block header %}
+{% load static %}
+       <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block main %}
+{% load static %}
+
+<div class="login-box">
+    <img src="{% static 'imagenes/user.png' %}" class="avatar" alt="">
+        <h3 class="text-light float-center">JE&J Medical <img  src="{% static 'imagenes/logoicq.png' %}" style="width: 40px;" alt=""></h3>
+ 
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <p>Usuario</p>
+                    <div class="input-group form-group">
+                        <input type="text" class="form-control" placeholder="Nombre de usuario" name="username">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                    </div>
+                    <p>Contraseña</p>
+                    <div class="input-group form-group">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="password">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                    </div>
+                    <input type="submit" name="submit" id="" value="Iniciar Sesión">
+                </form>
+            </div>
+</div>
+
+
+
+{% endblock %}

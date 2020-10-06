@@ -1,0 +1,323 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Datatimepicker-->
+    
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    
+    
+</head>
+
+<body>
+    {% load static%}
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#"></a>
+              <span class="navbar-brand"> <img src="{% static 'imagenes/logo.png' %}" alt=""> JE&J Medical</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="btn btn-warning" href="#">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Administracion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Atencion Médica</a>
+            </li>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" class="btn btn-warning">Configuración</button>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#">Recete Médica</a>
+                    <a class="dropdown-item" href="#">Antecedentes</a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" class="btn btn-warning">Reportes</button>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                    <a class="dropdown-item" href="#">Pacientes</a>
+                    <a class="dropdown-item" href="#">Consultas</a>
+                    <a class="dropdown-item" href="#">Citas</a>
+                  </div>
+                </div>
+              </div>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                  <a class="nav-link" href="">03-09-2020</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" href="#">
+                      <span class="efecto">
+                          <img class="rounded" src="{% static 'imagenes/usuario.png'%}" alt="">
+                      </span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Odalis</a>
+            </li>
+          </ul>
+      </nav>
+      
+       <div class="container-fluid" id="Inicio">
+           <div class="row">
+               <div class="col-s12 col-md-5">
+                   <div class="row">
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                           <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                               <div class="efecto">
+                                   <img class="card-img-top" src="{% static 'imagenes/atencion.png'%}" alt="">
+                               </div>
+                               <div class="card-header" >
+                                <h6 class="card-tittle"> <span class="color">
+                                          Atencion</span></h6>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/medicamentos.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Medicamentos</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/cita.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Citas</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/reportes.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Reportes</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/pacientes.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Pacientes</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/doctor.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Doctores</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/conf.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Configuracion</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/admin.png'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Administracion</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                       <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="card shadown mt-3 border-warning text-center font-weight-bold">
+                            <div class="efecto">
+                                <img class="card-img-top" src="{% static 'imagenes/atencion.jpg'%}" alt="">
+                            </div>
+                            <div class="card-header" >
+                             <h6 class="card-tittle"> <span class="color">
+                                       Atencion</span></h6>
+                            </div>
+                        </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="col-s12 col-md-7 ">
+                <table class="table table-hover table-striped mt-3">
+                    <thead class="bg-warning text-light">
+
+                        <tr>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th colspan="4">
+                                <div class="input-group input-daterange">
+                                    <label class="mt-2 text-primary"><span
+                                            class=" font-weight-bold"> Citas por dia
+                                        </span> </label>
+                                           <input type="date" class="form-control" id="inputPassword3">
+                                   
+                                </div>
+
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>8:00</th>
+                            <td>Odalis Reina</td>
+                            <td><span class="badge badge-success">Atendido</span></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-success btn-sm"> <i
+                                            class="left material-icons right">library_add</i></button>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                                            <a class="dropdown-item" href="#">Agendar</a>
+                                            <a class="dropdown-item" href="#">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>10:00</th>
+                            <td>Jean Pazmiño</td>
+                            <td><span class="badge badge-danger">Pendiente</span></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-success btn-sm"> <i
+                                            class="left material-icons right">library_add</i></button>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                                            <a class="dropdown-item" href="#">Agendar</a>
+                                            <a class="dropdown-item" href="#">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>12:00</th>
+                            <td>Euller Yugsan</td>
+                            <td><span class="badge badge-danger">Pendiente</span></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-success btn-sm"> <i
+                                            class="left material-icons right">library_add</i></button>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                                            <a class="dropdown-item" href="#">Agendar</a>
+                                            <a class="dropdown-item" href="#">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>13:00</th>
+                            <td>Nilda Reyna</td>
+                            <td><span class="badge badge-success">Atendida</span></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-success btn-sm"> <i
+                                            class="left material-icons right">library_add</i></button>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                                            <a class="dropdown-item" href="#">Agendar</a>
+                                            <a class="dropdown-item" href="#">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+           </div>
+           
+       </div>
+
+
+
+  
+       <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+       </script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="static/bootstrap/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        $(function () {
+            let diaActual = new Date();
+            let day = diaActual.getDate() < 10 ? '0' + diaActual.getDate() : diaActual.getDate();
+            let month = (diaActual.getMonth() + 1) < 10 ? '0' + (diaActual.getMonth() + 1) : (diaActual.getMonth() + 1);
+            let year = diaActual.getFullYear();
+            diaActual = day + '-' + month + '-' + year;
+            document.getElementById("start").value = diaActual;
+            $('[data-toggle="tooltip"]').tooltip()
+            $('.input-daterange').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                calendarWeeks: true,
+                clearBtn: true,
+                disableTouchKeyboard: true
+
+
+            });
+
+
+        })
+    </script>
+
+</body>
+    
+</html>

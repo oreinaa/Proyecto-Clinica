@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+{% load static %}
+
+{% block main %}
+
+<div class="card card-default" id="espacio">
+    <div class="card-header">
+        <h3 id="fig" class="card-tittle">
+            <i class="fas fa-user-md" style="font-size: 30px;"></i> <span id="txt">
+                Nuevo Doctor</span>
+            <a href="{% url 'core:listar_doctor' %}" class="btn btn-primary float-right">Cancelar</a>
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                    <!-- {{ form.as_p}} -->
+                    <div class="form-group row" >
+                        <div class="col-12">
+                            <h5>Informacion Personal</h5>
+                            <hr>
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.cedula.name }}">{{form.cedula.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.cedula}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.nombre.name }}">{{form.nombre.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.nombre}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                        for="id_{{ form.apellido.name }}">{{form.apellido.label}}</label>
+                        <div class="col-sm-4">
+                           {{form.apellido}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.sexo.name }}">{{form.sexo.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.sexo}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.nacimiento.name }}">{{form.nacimiento.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.nacimiento}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.civil.name }}">{{form.civil.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.civil}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.provincia.name }}">{{form.provincia.label}}</label>
+                        <div class="col-sm-4 my-2">
+                            {{form.provincia}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.ciudad.name }}">{{form.ciudad.label}}</label>
+                        <div class="col-sm-4 my-2">
+                            {{form.ciudad}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.direccion.name }}">{{form.direccion.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.direccion}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.telefono.name }}">{{form.telefono.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.telefono}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.email.name }}">{{form.email.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.email}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.foto.name }}">{{form.foto.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.foto}} 
+                        </div>
+                        <div class="col-12">
+                            <h5>Informacion Profesional</h5>
+                            <hr>
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.consultorio.name }}">{{form.consultorio.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.consultorio}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.lugar.name }}">{{form.lugar.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.lugar}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.titulo.name }}">{{form.titulo.label}}</label>
+                        <div class="col-sm-4 my-2">
+                            {{form.titulo}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.profesion.name }}">{{form.profesion.label}}</label>
+                        <div class="col-sm-4 my-2">
+                            {{form.profesion}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.registro.name }}">{{form.registro.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.registro}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.duracion.name }}">{{form.duracion.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.duracion}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.horario.name }}">{{form.horario.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.horario}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                            for="id_{{ form.logo.name }}">{{form.logo.label}}</label>
+                        <div class="col-sm-4">
+                            {{form.logo}} 
+                        </div>
+                        <label class="col-sm-2 col-form-label my-2"
+                        for="id_{{ form.estado.name }}">{{form.estado.label}}</label>
+                        <div class="col-sm-10 my-2">
+                            {{form.estado}} 
+                        </div>
+                    </div>
+                    <button class="btn btn-success btn-block"
+                    type="submit"> Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

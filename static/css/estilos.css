@@ -1,0 +1,113 @@
+#Inicio {
+    margin-top: 7% !important;
+}
+
+
+.efecto {
+    overflow: hidden;
+
+}
+
+.efecto img{
+    transition: all 1.5s ease;
+}
+
+.efecto:hover img {
+    transform: scale(1.5);
+    cursor: zoom-in;
+}
+
+.color:hover {
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.card-header {
+    background-color:rgb(248, 193, 12)
+}
+#espacio {
+    margin-top: 7%;
+    margin-left: 3%;
+    margin-right: 10%;
+}
+
+#fig {
+    margin-top: 2px;
+}
+
+
+.form-cont{
+    margin-top: 1%;
+    border-radius: 3px;
+    font-size: 17px;
+    width: 55%;
+    transition: all 0.4s;
+    overflow: hidden;
+    
+}
+
+
+#con{
+    max-height:300px;
+    overflow-y:auto;
+}
+
+tbody tr:first-child td{
+    padding-top:28px;
+}
+
+.form {
+    margin-left: 3%;
+
+    
+}
+
+
+.cambiar {
+    margin-top: 4%;
+    margin-right: 100px;
+}
+
+#espac{
+    margin-top: 12px;
+    margin-left: 3%;
+    margin-right: 50%;
+}
+
+.buscar {
+    height: 30px;
+    width: 49.5%;
+}
+
+.bot:hover .tool {
+    display: inline-block;
+}
+
+
+.tool {
+    display: none;
+    position: absolute;
+    background: rgb(54, 52, 52);
+    line-height: 20px;
+    z-index: 200;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    left: -20px;
+    bottom: -55px;
+
+}
+
+.tool::after {
+    content: "";
+    display: block;
+    border-bottom: 9px solid rgb(54, 52, 52);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    position: absolute;
+    bottom: 50px;
+    left: calc(50% - 10px);
+}

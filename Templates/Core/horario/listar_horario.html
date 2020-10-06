@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'header.html' %}
+{% load static %}
+{% endblock %}
+
+{% block main %}
+<div class="card card-default" id="espacio">
+    <div class="card-header">
+        <h3 id="fig" class="card-tittle">
+            <i class="far fa-clock" style="font-size: 30px;"></i> <span>
+                Horarios</span>
+             <a href="{% url 'core:crear_horario' %}" class="btn btn-primary float-right"><i class="fa fa-plus"></i>  Nuevo Horario </a> 
+        </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <table class="table table-hover table-striped mt-3">
+            <thead class="bg-warning text-light">
+                <tr class="">
+                    <th>Dia</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead> 
+            <tbody id="contenedor" >
+                {% for horario in horarios %}
+                <tr class="text-justify">
+                   
+                    <td>{{ horario.dia_semana }}</td>
+                    <td>{{ horario.desde }}</td>
+                    <td>{{ horario.hasta }}</td>
+                    {% if horario.estado %}
+                    <td class="text-center"><span class="badge badge-pill badge-primary">En uso</span></td>
+                    {% else %}
+                    <td class="text-center"><span class="badge badge-pill badge-danger">Deshuso</span></td>
+                    {% endif %}
+
+                    <td>
+                        <div class="d-flex justify-content-center" 
+                        aria-label=" with button groups">
+                             <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                 <a href="{% url 'core:editar_horario' horario.id %}" class="bot btn btn-outline-primary"
+                                    ><i class="far fa-edit"></i><span class="tool">Editar horario</span></a>
+                                 <a href="#" rel="action" data-json='{"action": "elim", "id":"{{ horario.id}}"}'
+                                 class="bot btn btn-outline-danger"><i class="far fa-trash-alt"></i><span class="tool">Eliminar horario</span></a>
+                             </div>
+                       </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <div class="alert alert-dark alert-dismissible fade 
+                show mt- bg-info rounded shadow" role="alert">
+                   <div class="d-flex justify-content-center"><img src="{% static 'imagenes/alerta.png' %}" style="width: 50px;" alt=""></div>
+               
+               <h1 class="text-center text-danger font-weight-bold">Mensaje del Sistema</h1>
+               <h2 class="ml-4 badge badge-danger" style="font-size: 2w;">No existen horarios registrados!!!</h2>
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div> 
+               {% endfor %}
+            </tbody>
+       </table>
+      
+        </div>
+      </div>
+        
+    </div>
+</div>
+
+{% endblock %}
+
+{% block frmodal %}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+      <form name="frmEliminar" id="frmEliminar" method="POST" action="{% url 'core:eliminar_horario' 0 %}">
+          {% csrf_token %}
+          <div class="modal-header bg-primary text-light">
+            <h3 class="modal-title ml-5 font-weigth-bold" id="exampleModalLabel">Mensaje del Sistema</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <input type="hidden" name="id" id="id" value="">
+             <input type="hidden" name="action" value="elim">
+             <div class="h3 text-center">
+                 <label class="text-primary font-weight-bold" for="">Esta seguro de eliminar el horario: </label>
+                 <span class="text-light font-weight-bold badge badge-danger badge-pill" id="descripcion"></span>
+             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </div>
+      </form>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+$('#contenedor').on('click','a[rel="action"]', function () {
+  var data = $(this).data('json'),
+      action= data.action,
+      id = data.id;
+  
+  if (action == 'elim') {
+
+      var desc = $(this).parents('tr').children('td').eq(0).html();
+      $('#descripcion').html(desc);
+      $('#frmEliminar #id').val(id);
+
+      $('#myModal').modal('show');
+      return;
+  }
+});
+
+</script>
+
+<script >
+
+</script>
+{% endblock %}
+

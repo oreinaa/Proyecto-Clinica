@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+{% block headcss %}
+{% load static %}
+
+
+<link href="{% static 'fullcalendar/main.css' %}" rel='stylesheet' />
+<script src="{% static 'fullcalendar/main.js' %}"></script>
+
+{% endblock %}
+
+
+{% block main %}
+{% load static %}
+
+    <div class="card card-default" id="espacio">
+        <div class="card-header">
+            <h3 id="fig" class="card-tittle">
+                <i class="far fa-calendar-alt" style="font-size: 30px;"></i> <span>
+                    Agenda</span>
+                 <a href="{% url 'core:crear_cita' %}" class="btn btn-primary float-right"><i class="fa fa-plus"></i>  Nueva Cita</a> 
+            </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div id="calendar">
+
+              </div>
+            </div>
+            <div class="col">
+              <table class="table table-hover table-striped  mt-3">
+                <thead class="bg-warning text-light">
+                    <tr class="">
+                        <th>Hora</th>
+                        <th>Fecha</th>
+                        <th>Paciente</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead> 
+                <tbody id="contenedor">
+                  <tr>
+                    <th colspan="6">
+                        <form autocomplete="off" method="GET">
+                            <div class="input-group input-daterange">
+                                <input type="date" name="fecha" value="{{fecha}}"
+                                    class="form-control text-lg-left mr-2 text-dark font-weight-bold">
+                                <button class="btn btn-primary mx-2" type="submit"><i class="fas fa-search"></i> Buscar</button>
+                            </div>
+                        </form>
+                    </th>
+
+                </tr>
+                    {% for agenda in agendas %}
+                    <tr class="text-justify">
+                        <td>{{ agenda.hora}}</td>
+                        <td>{{ agenda.fecha }}</td>
+                        <td>{{ agenda.paciente.nombre}}</td>
+                        <td>{{ agenda.motivo}}</td>
+                        {% if agenda.estado %}
+                        <td class="text-center"><span class="badge badge-pill badge-primary">Atendido</span></td>
+                        {% else %}
+                        <td class="text-center"><span class="badge badge-pill badge-danger">Pendiente</span></td>
+                        {% endif %}
+   
+                        <td>
+                            <div class="d-flex justify-content-center" 
+                            aria-label=" with button groups">
+                                 <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+                                  <a href="{% url 'atencion:historia' %}?id_paciente={{agenda.paciente.id}}" class="bot btn btn-outline-success"
+                                  ><i class="fas fa-user-md"></i><span class="tool">Realizar consulta</span></a>
+                                     <a href="{% url 'core:editar_cita' agenda.id %}" class="bot btn btn-outline-primary"
+                                        ><i class="far fa-edit"></i><span class="tool">Editar cita</span></a>
+                                     <a href="#" rel="action" data-json='{"action": "elim", "id":"{{ agenda.id}}"}'
+                                     class="bot btn btn-outline-danger"><i class="far fa-trash-alt"></i><span class="tool">Eliminar cita</span></a>
+                                 </div>
+                           </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <div class="alert alert-dark alert-dismissible fade 
+                    show mt- bg-info rounded shadow" role="alert">
+                       <div class="d-flex justify-content-center"><img src="{% static 'imagenes/alerta.png' %}" style="width: 50px;" alt=""></div>
+                   
+                   <h1 class="text-center text-danger font-weight-bold">Mensaje del Sistema</h1>
+                   <h2 class="ml-4 badge badge-danger" style="font-size: 2w;">No existen citas de atencion registrados!!!</h2>
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div> 
+                   {% endfor %}
+                </tbody>
+           </table>
+          
+            </div>
+          </div>
+            
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block frmodal %}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <form name="frmEliminar" id="frmEliminar" method="POST" action="{% url 'core:eliminar_cita' 0 %}">
+              {% csrf_token %}
+              <div class="modal-header bg-primary text-light">
+                <h3 class="modal-title ml-5 font-weigth-bold" id="exampleModalLabel">Mensaje del Sistema</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                 <input type="hidden" name="id" id="id" value="">
+                 <input type="hidden" name="action" value="elim">
+                 <div class="h3 text-center">
+                     <label class="text-primary font-weight-bold" for="">Esta seguro de eliminar la cita de:</label>
+                     <span class="text-light font-weight-bold badge badge-danger badge-pill" id="descripcion"></span>
+                 </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+    
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'es',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next,today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            
+        },
+        titleFormat: { year: 'numeric', month: 'short' }, 
+        buttonText: {
+            today: "Hoy",
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            list: "Agenda"
+            
+        },
+        weekText: "Sm",
+            allDayText: "Todo el día",
+            moreLinkText: "más",
+            noEventsText: "No hay eventos para mostrar",
+        
+      });
+      calendar.render();
+    });
+
+    $('#contenedor').on('click','a[rel="action"]', function () {
+      var data = $(this).data('json'),
+          action= data.action,
+          id = data.id;
+      
+      if (action == 'elim') {
+
+          var desc = $(this).parents('tr').children('td').eq(2).html();
+          $('#descripcion').html(desc);
+          $('#frmEliminar #id').val(id);
+
+          $('#myModal').modal('show');
+          return;
+      }
+  });
+
+  </script>
+
+<script >
+  
+</script>
+{% endblock %}

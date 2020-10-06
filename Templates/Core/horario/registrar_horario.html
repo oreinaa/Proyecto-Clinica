@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+{% load static %}
+
+{% block main %}
+
+<div class="card card-default" id="espacio">
+    <div class="card-header">
+        <h3 id="fig" class="card-tittle">
+            <i class="far fa-clock" style="font-size: 30px;"></i> <span id="txt">
+                Nuevo Horario</span>
+            <a href="{% url 'core:listar_horario' %}" class="btn btn-primary float-right">Cancelar</a>
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+
+                    <button class="btn btn-success btn-block"
+                    type="submit"> Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
